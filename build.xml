@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="noodle-api" default="api-unit">
+  <target name="api-unit" depends="test-api"/>
+  <target name="clean" depends="migrate,migrate-test" />
+
+  <target name="run">
+    <exec executable="php">
+      <arg value="-S" />
+      <arg value="0.0.0.0:3000" />
+      <arg value="-t" />
+      <arg path="${basedir}/public/" />
+    </exec>
+  </target>
+  <target name="test-api">
+    <exec executable="phpunit">
+      <arg path="${basedir}/tests/api/" />
+    </exec>
+  </target>
+
+  <target name="migrate-test">
+    <exec executable="./artisan">
+      <arg value="migrate:refresh" />
+      <arg value="--seed" />
+      <arg value="--database=testing" />
+    </exec>
+  </target>
+
+  <target name="migrate">
+    <exec executable="./artisan">
+      <arg value="migrate:refresh" />
+      <arg value="--seed" />
+    </exec>
+  </target>
+
+
+  <target name="lint">
+    <exec executable="php">
+      <arg value="-l" />
+			<arg path="${basedir}/app/" />
+    </exec>
+  </target>
+
+  <target name="lint-tests">
+    <exec executable="php">
+      <arg value="-l" />
+			<arg path="${basedir}/tests/" />
+    </exec>
+  </target>
+</project>

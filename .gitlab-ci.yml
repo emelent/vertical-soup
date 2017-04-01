@@ -1,0 +1,33 @@
+# Select image from https://hub.docker.com/_/php/
+image: smashmint/docker-gitlab-ci-runner-php7.1
+# Select what we should cache
+cache:
+  paths:
+  - vendor/
+
+before_script:
+# Install git and unzip (composer will need them)
+- apt-get update && apt-get install -qqy git unzip
+# Install composer
+- curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
+# Install all project dependencies
+- composer install
+- composer require "codeception/codeception:*"
+
+# setup lumen env
+- cp .env.example .env
+
+# setup databases
+- touch database/testing.sqlite database/database.sqlite
+
+# Run migrations
+- php artisan migrate:refresh --seed
+- php artisan migrate:refresh --database=testing --seed
+
+# Run webserver
+- php -S localhost:3000 --docroot public &>/dev/null&
+
+# Test
+test:
+  script:
+  - vendor/bin/codecept run
