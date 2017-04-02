@@ -48,7 +48,7 @@ $app->group(
       function() use ($app){
         /*interests routes*/
           $app->delete('/interests', 'InterestsController@destroyAll');
-          $app->delete('/searches', 'SearchesController@destroyAll');
+          $app->delete('/searches', 'SearchController@destroyAll');
     });    
   }
 );

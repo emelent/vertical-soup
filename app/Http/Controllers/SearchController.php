@@ -9,7 +9,7 @@ class SearchController extends ModelController{
 
 	protected $storeRules = [
 		'text'	=> 'required|string',
-		'persistent'	=> 'required|boolean',
+		'persistent'	=> 'required',
 	];
 
 	protected $updateRules = [

@@ -22,6 +22,17 @@ class InterestsController extends ModelController{
     parent::__construct(Interests::class);
 	}
 
+  public function showAll(Request $request){
+    $interests = Interests::all()->transform(function($item, $key){
+      $cat = Categories::find($item->category_id);
+      if($cat)
+        $item->category = $cat->name; 
+      return $item;
+    }); 
+
+    return $this->success($interests, self::HTTP_OK);
+  }
+
 	public function store(Request $request)
 	{
 		$this->validateStoreRequest($request);

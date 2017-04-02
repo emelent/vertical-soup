@@ -8,7 +8,7 @@ class Interests extends Model
 {
   
   protected $fillable = [
-    'name'
+    'name', 'category_id'
   ];  
 
   public function categories(){
