@@ -8,7 +8,7 @@ GET:
 	shoes/category/custom/:searchQuery
 
 	/api/interests/
-	/api/interests/
+	/api/searches/
 POST:
 	/api/interests/
 */
