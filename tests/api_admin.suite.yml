@@ -1,4 +1,0 @@
-class_name: Api_adminTester
-modules:
-    enabled:
-        - \Helper\Api_admin
